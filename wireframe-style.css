@@ -6,6 +6,10 @@ body main {
 
 }
 
+h1{
+    text-align: center;
+}
+
 .start-screen{
 
     display: flex;
@@ -17,11 +21,20 @@ body main {
 .question-screen{
     background-color: darkgray;
     padding: 14px;
-}
-
-.box {
     display: flex;
-    flex-direction: column;
-    height: 500px;
-
+    flex-direction: column; 
 }
+
+.answer-screen{
+    background-color: lightgray;
+    padding: 14px;
+    display: flex;
+    flex-direction: column; 
+    text-align: center;
+}
+
+span{
+
+    align-self: flex-end;
+}
+
