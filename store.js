@@ -13,32 +13,32 @@ const STORE = {
         {
             name: "In your opinion, which of these is the ideal pet?",
             answers: ["Dog", "Cat", "Rabbit","Snake"],
-            correctAnswer: "true"
+            correctAnswer: true
         },
         {
             name: "Choose a color, ANY color.",
             answers: ["Black", "Brown", "Periwinkle","White"],
-            correctAnswer: "true"
+            correctAnswer: true
         },
         {
             name: "Where do you keep your scarves?",
             answers: ["In your closet.", "Around your neck.", "Up my sleeve.","You don't have a scarf."],
-            correctAnswer: "true"
+            correctAnswer: true
         },
         {
             name: "What is your magic weapon of choice?",
             answers: ["Hammer", "Baseball Bat", "Wand","Sword"],
-            correctAnswer: "true"
+            correctAnswer: true
         },
         {
             name: "What are the suits in deck?",
             answers: ["Ace, Spade, Club, Heart", "Ex, Oh, Ex, Oh", "Diamond, Spade, Club, Heart","Circle, Square, Triangle, Cross"],
-            correctAnswer: "true"
+            correctAnswer: true
         },
         {
             name: "Where are you most comfortable?",
             answers: ["In Bed.", "In the streets.", "On stage","On a tropical island."],
-            correctAnswer: "true"
+            correctAnswer: true
         },
         {
             name: "What is your prestige?",
