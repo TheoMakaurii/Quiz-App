@@ -1,11 +1,26 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
 body main {
-
-    margin: 28px;
+    padding:28px;
     display: flex;
     flex-direction: column;
-
+    align-items: center;
+    justify-content: center;
+    background-image: url("woodbackground.jpg");
+    background-size: cover;
+    height: 100%;
+    background-repeat: no-repeat;
 }
-
+body main div{
+    width: 50%;
+    border: 1px solid #000;
+    border-radius: 49px;
+}
+main div button {
+    margin: 15px;
+}
 h1{
     text-align: center;
 }

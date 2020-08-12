@@ -52,11 +52,9 @@ function generateQuestionScreenString(database) {
   return `<div class="question-screen">
   <span id="score">CORRECT: ${STORE.questionsCorrect}/7</span>
   <h2>${STORE.questions[STORE.currentQuestion].name}</h2>
-  <div class="box">
       <form class="options">
         ${generateQuestionsString(STORE.questions)}
       </form>
-  </div>
 </div>`;
 }
 function generateResponseScreenString(database) {
