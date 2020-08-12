@@ -1,14 +1,6 @@
 /* eslint-disable no-undef, quotes, no-console */
 
 'use strict';
-/*
-const STORE = [
-  {id: cuid(), name: "apples", checked: false},
-  {id: cuid(), name: "oranges", checked: false},
-  {id: cuid(), name: "milk", checked: true},
-  {id: cuid(), name: "bread", checked: false}
-];
-*/
 
 function generateQuestionsString(database){
   // Here we will make the questions string to put in the form.
@@ -41,6 +33,7 @@ function generateResponseScreenString(database){
 }
 function generateResultScreenString(database){
   // Here we will return some similar to generateItemElement() function.
+  // Show how many they got right and generate a unique response based on questionsCorrect
   return "";
 }
 
@@ -93,11 +86,6 @@ function renderShoppingList() {
 
 
 
-// function addItemToShoppingList(itemName) {
-//   console.log(`Adding "${itemName}" to shopping list`);
-//   STORE.push({id: cuid(), name: itemName, checked: false});
-// }
-
 function handleQuizStart(){
   //when the userStarts the quiz, render the first question. 
 }
@@ -126,13 +114,6 @@ function handleNewItemSubmit() {
 }
 
 
-// function toggleCheckedForListItem(itemId) {
-//   console.log("Toggling checked property for item with id " + itemId);
-//   const item = STORE.find(item => item.id === itemId);
-//   item.checked = !item.checked;
-// }
-
-
 function getValueFromCheckedAnswer(){
   // Find the value of a "checked" radio button
   // shound be something like this 
@@ -146,6 +127,41 @@ function getItemIdFromElement(item) {
 }
 
 
+
+console.log(STORE.questions[0]);
+console.log(STORE.responses[6]);
+
+// this function will be our callback when the page loads. it's responsible for
+// initially rendering the shopping list, and activating our individual functions
+// that handle new item submission and user clicks on the "check" and "delete" buttons
+// for individual shopping list items.
+function main() {
+  renderShoppingList();
+  handleNewItemSubmit();
+  //handleItemCheckClicked();
+  //handleDeleteItemClicked();
+  
+}
+
+// when the page loads, call `handleShoppingList`
+$(main);
+
+
+// Code in the example but we won't need
+
+// const STORE = [
+//   {id: cuid(), name: "apples", checked: false},
+//   {id: cuid(), name: "oranges", checked: false},
+//   {id: cuid(), name: "milk", checked: true},
+//   {id: cuid(), name: "bread", checked: false}
+// ];
+
+// function toggleCheckedForListItem(itemId) {
+//   console.log("Toggling checked property for item with id " + itemId);
+//   const item = STORE.find(item => item.id === itemId);
+//   item.checked = !item.checked;
+// }
+
 // function handleItemCheckClicked() {
 //   $('.js-shopping-list').on('click', `.js-item-toggle`, event => {
 //     console.log('`handleItemCheckClicked` ran');
@@ -155,6 +171,10 @@ function getItemIdFromElement(item) {
 //   });
 // }
 
+// function addItemToShoppingList(itemName) {
+//   console.log(`Adding "${itemName}" to shopping list`);
+//   STORE.push({id: cuid(), name: itemName, checked: false});
+// }
 
 // function handleDeleteItemClicked() {
 //   $('.js-shopping-list').on('click', `.js-item-delete`, event =>{
@@ -175,22 +195,3 @@ function getItemIdFromElement(item) {
 //   });
 
 // }
-
-
-console.log(STORE.questions[0]);
-console.log(STORE.responses[6]);
-
-// this function will be our callback when the page loads. it's responsible for
-// initially rendering the shopping list, and activating our individual functions
-// that handle new item submission and user clicks on the "check" and "delete" buttons
-// for individual shopping list items.
-function main() {
-  renderShoppingList();
-  handleNewItemSubmit();
-  //handleItemCheckClicked();
-  //handleDeleteItemClicked();
-  
-}
-
-// when the page loads, call `handleShoppingList`
-$(main);
