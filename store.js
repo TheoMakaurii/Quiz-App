@@ -49,11 +49,13 @@ const STORE = {
     responses:[
         {
             name: "response1 (This is an internal name, we won't have to use this value.)",
-            responses: [`Voila! Of course a Magician would never be caught without a rabbit in their hat!`, ` Other pets are fine for the less magically inclined, but a true magician always has a furry friend in his hat.`]
+            responses: [`Voila! Of course a Magician would never be caught without a rabbit in their hat!`, ` Other pets are fine for the less magically inclined, but a true magician always has a furry friend in his hat.`],
+            image: "magic rabbit.jpg"
         },
         {
             name: "response2 (This is an internal name, we won't have to use this value.)",
-            responses: [`A magician has many favorite colors. You have great taste, too!`, `Wow! You are so boring. A magician would never be caught dead in brown!`]
+            responses: [`A magician has many favorite colors. You have great taste, too!`, `Wow! You are so boring. A magician would never be caught dead in brown!`],
+            image:"magician outfit.jpg"
         },
         {
             name: "response3 (This is an internal name, we won't have to use this value.)",

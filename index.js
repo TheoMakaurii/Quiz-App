@@ -18,20 +18,20 @@ function generateQuestionsString(question) {
     value2nd = "false";
   }
 
-  return `<input type="radio" id="A" name="questionOne" value="${value}" required>
+  return `<input type="radio" id="A" name="questionOne" aria-pressed="false" value="${value}" required>
   <label for="A"> ${question[STORE.currentQuestion].answers[0]} </label>
   <br>
-  <input type="radio" id="B" name="questionOne" value="${value2nd}">
+  <input type="radio" id="B" name="questionOne" aria-pressed="false" value="${value2nd}">
   <label for="B"> ${question[STORE.currentQuestion].answers[1]} </label>
   <br>
-  <input type="radio" id="C" name="questionOne" value="true">
+  <input type="radio" id="C" name="questionOne" aria-pressed="false" value="true">
   <label for="C"> ${question[STORE.currentQuestion].answers[2]} </label>
   <br>
-  <input type="radio" id="D" name="questionOne" value="${value}">
+  <input type="radio" id="D" name="questionOne" aria-pressed="false" value="${value}">
   <label for="D"> ${question[STORE.currentQuestion].answers[3]} </label>
   <br>
 
-  <button type="submit" id="submit-button">SUBMIT</button>`;
+  <button type="submit" id="submit-button" aria-pressed="false" >SUBMIT</button>`;
 }
 
 function generateStartScreenString(store) {
@@ -39,6 +39,7 @@ function generateStartScreenString(store) {
   //console.log(store);
   return `<div class="start-screen ">
   <h1>${store.startScreen.title}</h1>
+  <img src="magic hat.jpeg">
   <button type="button" label="start">START</button>
   <h2>${store.startScreen.header}</h2>
 </div>`;
@@ -62,17 +63,19 @@ function generateResponseScreenString(database) {
   handleNextQuestion();
   // Response will be two choices, if they get it right, if they get it wrong
   // So do a check for that. 
+  let responseCollection = STORE.responses;
+  let currentReponseIndex = STORE.currentQuestion - 1;
   if (STORE.questionsRightOrWrong === true) {
-    let responseCollection = STORE.responses;
-    let currentReponseIndex = STORE.currentQuestion - 1;
     return `<div class="answer-screen" id="">
     <h2> ANSWER SCREEN </h2>
+    <img src="${STORE.responses[currentReponseIndex].image}">
     <h3 id="answer-binary">${responseCollection[currentReponseIndex].responses[0]}</h3>
     <button id="next-question">Next Question</button>
 </div>`;
   } else {
     return `<div class="answer-screen" id="">
     <h2> ANSWER SCREEN </h2>
+    <img src="${STORE.responses[currentReponseIndex].image}">
     <h3 id="answer-binary">${STORE.responses[STORE.currentQuestion - 1].responses[1]}</h3>
     <button id="next-question">Next Question</button>
 </div>`;
@@ -119,6 +122,7 @@ function generateQuestionScreen() {
   //$(`main form input[type="radio"]`).attr('required', true);
   $(`main`).html(html);
   console.log(html);
+  handleKeyPressSpace();
   handleAnswerSubmit();
 }
 
@@ -156,9 +160,11 @@ function handleAnswerSubmit() {
   $(`main form button[type="submit"]`).on('click', function (event) {
     event.preventDefault();
     let userAnswer = getValueFromCheckedAnswer();
-    // console.log(`userAnswer is ${userAnswer}, the type of it is ${typeof userAnswer}`);
-
-    // increment the currentQuestion counter
+   //console.log(`userAnswer is ${userAnswer}`);
+   if (userAnswer === undefined){
+     alert("Please choose an answer!");
+   } else {
+     // increment the currentQuestion counter
     STORE.currentQuestion++;
     //console.log(STORE.currentQuestion);
     // checks that value against the actual correct answer
@@ -179,6 +185,7 @@ function handleAnswerSubmit() {
     }
 
     else { generateResultsScreen(); }
+   }
   });
 
   // then render the responseScreen
@@ -198,15 +205,29 @@ function handleStartOver(){
   });
 }
 
+function handleKeyPressSpace(){
+  $(`main form input`).keydown(function(){
+    {
+      //console.log(`You pressed this key ${event.which}`);
+      let pressedKey = $(event.which);
+      if(pressedKey === 32){
+        $(this).attr("checked");
+      }
+    }
+  });
+}
+
 function getValueFromCheckedAnswer() {
   // Find the value of a "checked" radio button
   // shound be something like this 
   // $(`input[name=answers]:checked`).val();
   let input = $(`input[name="questionOne"]:checked`).val();
-  //console.log(`${input} test test`);
-  let answer = true;
+  console.log(`${input} test test`);
+  let answer = "";
   if (input === "true") {
     answer = true;
+  } else if (input === undefined){
+    answer = undefined;
   }
   else { answer = false; }
   //console.log(`${input} this is type of ${answer}`);
