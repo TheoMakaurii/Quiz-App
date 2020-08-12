@@ -4,6 +4,20 @@
 
 function generateQuestionsString(database){
   // Here we will make the questions string to put in the form.
+  return `<input type="radio" id="A" name="questionOne" value="false" required>
+  <label for="A"> Dog </label>
+  <br>
+  <input type="radio" id="B" name="questionOne" value="false">
+  <label for="B"> Cat </label>
+  <br>
+  <input type="radio" id="C" name="questionOne" value="true">
+  <label for="C"> Rabbit </label>
+  <br>
+  <input type="radio" id="D" name="questionOne" value="false">
+  <label for="D"> Snake </label>
+  <br>
+
+  <button type="submit" id="submit-button">SUBMIT</button>`;
 }
 
 function generateShoppingItemsString(shoppingList) {
@@ -15,9 +29,14 @@ function generateShoppingItemsString(shoppingList) {
   return items.join("");
 }
 
-function generateStartScreenString(database){
+function generateStartScreenString(store){
   // Here we will return some similar to generateItemElement() function.
-  return "";
+  //console.log(store);
+  return `<div class="start-screen ">
+  <h1>${store.startScreen.title}</h1>
+  <button type="button" label="start">START</button>
+  <h2>${store.startScreen.header}</h2>
+</div>`;
 }
 
 function generateQuestionScreenString(database,questions){
@@ -56,11 +75,15 @@ function generateStartScreen(){
   // render the start screen in the DOM
   // it will take the string from generateStartScreenString
   // and put that in the dom.
+  let html = generateStartScreenString(STORE);
+  $(`main`).html(html);
 }
 function generateQuestionScreen(){
   // render the Question screen in the DOM
   // it will take the string from generateQuestionScreenString
   // and put that in the dom.
+
+  $(`main`).html("This is random html to show you went render Questions.");
 }
 
 function generateResponseScreen(){
@@ -86,8 +109,13 @@ function renderShoppingList() {
 
 
 
-function handleQuizStart(){
+function handleQuizStartButton(){
   //when the userStarts the quiz, render the first question. 
+  console.log("you called handleQuizStartButton the Function");
+  $(`button`).on('click', function(){
+    console.log("This button is working");
+    generateQuestionScreen();
+  });
 }
 
 function handleAnswerSubmit(){
@@ -136,10 +164,8 @@ console.log(STORE.responses[6]);
 // that handle new item submission and user clicks on the "check" and "delete" buttons
 // for individual shopping list items.
 function main() {
-  renderShoppingList();
-  handleNewItemSubmit();
-  //handleItemCheckClicked();
-  //handleDeleteItemClicked();
+  generateStartScreen();
+  handleQuizStartButton();
   
 }
 

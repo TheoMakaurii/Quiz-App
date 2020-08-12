@@ -77,7 +77,8 @@ const STORE = {
         },
 
     ],
-    result:[
-
-    ]
+    result:{
+        title: "TOTAL SCORE",
+        response:['HOW DID YOU DO THAT? Oh right, a magician never reveals their secret.','Im sure your mother is very proud.']
+    }
 };
