@@ -73,7 +73,7 @@ const STORE = {
         },
         {
             name: "response6 (This is an internal name, we won't have to use this value.)",
-            responses: [`Very nice! Sounds like an excellent spot to wow an audience!`, `While you are relaxing, there is a whole world of people that is being left unimpressed. Shame on you.`],
+            responses: [`Very nice! Sounds like an excellent spot to wow an audience!`, `While you are relaxing, there is a whole world of people being left unimpressed. Shame on you.`],
             image:"magic-audience.png"
         },
         {
