@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable no-undef, quotes, no-console */
 
 'use strict';
@@ -55,10 +56,25 @@ function generateQuestionScreenString(database,questions){
 </div>`;
 }
 function generateResponseScreenString(database){
-  // Here we will return some similar to generateItemElement() function.
+  
   // Response will be two choices, if they get it right, if they get it wrong
   // So do a check for that. 
-  return "";
+  if(STORE.questionsRightOrWrong === true){
+    let responseCollection = STORE.responses;
+    let currentReponseIndex = STORE.currentQuestion-1;
+    console.log("true");
+    return `<div class="answer-screen" id="">
+    <h2> ANSWER SCREEN </h2>
+    <h3 id="answer-binary">${responseCollection[currentReponseIndex].responses[0]}</h3>
+    <button>Next Question</button>
+</div>`;
+  } else {
+    return `<div class="answer-screen" id="">
+    <h2> ANSWER SCREEN </h2>
+    <h3 id="answer-binary">${STORE.responses[STORE.currentQuestion-1].responses[1]}</h3>
+    <button>Next Question</button>
+</div>`;
+  }
 }
 function generateResultScreenString(database){
   // Here we will return some similar to generateItemElement() function.
@@ -66,20 +82,6 @@ function generateResultScreenString(database){
   return "";
 }
 
-function generateItemElement(item) {
-  return `
-    <li data-item-id="${item.id}">
-      <span class="shopping-item js-shopping-item ${item.checked ? "shopping-item__checked" : ''}">${item.name}</span>
-      <div class="shopping-item-controls">
-        <button class="shopping-item-toggle js-item-toggle">
-            <span class="button-label">check</span>
-        </button>
-        <button class="shopping-item-delete js-item-delete">
-            <span class="button-label">delete</span>
-        </button>
-      </div>
-    </li>`;
-}
 
 function generateStartScreen(){
   // render the start screen in the DOM
@@ -95,12 +97,15 @@ function generateQuestionScreen(){
   //let html =generateQuestionsString(STORE);
   let html = generateQuestionScreenString(STORE,generateQuestionsString);
   $(`main`).html(html);
+  handleAnswerSubmit();
 }
 
 function generateResponseScreen(){
   // render the response screen in the DOM
   // it will take the string from generateResponseScreenString
   // and put that in the dom.
+  let html = generateResponseScreenString(STORE);
+  $(`main`).html(html);
 }
 
 function generateResultsScreen(){
@@ -109,20 +114,9 @@ function generateResultsScreen(){
   // and put that in the dom.
 }
 
-function renderShoppingList() {
-  // render the shopping list in the DOM
-  console.log('`renderShoppingList` ran');
-  const shoppingListItemsString = generateShoppingItemsString(STORE);
-
-  // insert that HTML into the DOM
-  $('.js-shopping-list').html(shoppingListItemsString);
-}
-
-
-
 function handleQuizStartButton(){
   //when the userStarts the quiz, render the first question. 
-  console.log("you called handleQuizStartButton the Function");
+  //console.log("you called handleQuizStartButton the Function");
   $(`button`).on('click', function(){
     console.log("This button is working");
     generateQuestionScreen();
@@ -131,10 +125,29 @@ function handleQuizStartButton(){
 
 function handleAnswerSubmit(){
   // takes the value from getValueFromCheckedAnswer function
-  // checks that value against the actual correct answer
-  // increment the currentQuestion counter
-  STORE.currentQuestion++;
-  // changed the value of questionsRightOrWrong to either true or false
+  //console.log("you called the submit function!");
+  $(`main form button[type="submit"`).on('click', function(event){
+    event.preventDefault();
+    let userAnswer = getValueFromCheckedAnswer();
+    console.log(`userAnswer is ${userAnswer}, the type of it is ${typeof userAnswer}`);
+
+    // increment the currentQuestion counter
+    STORE.currentQuestion++;
+    console.log(STORE.currentQuestion);
+     // checks that value against the actual correct answer
+     // changed the value of questionsRightOrWrong to either true or false
+    
+    if(userAnswer === STORE.questions[STORE.currentQuestion-1].correctAnswer){
+      //do something
+      STORE.questionsRightOrWrong = true;
+      console.log("user has the right answer");
+    } else {
+      console.log("user has the wrong answer");
+      STORE.questionsRightOrWrong = false;
+    }
+    generateResponseScreen();
+  });
+  
   // then render the responseScreen
 }
 
@@ -158,6 +171,7 @@ function getValueFromCheckedAnswer(){
   // Find the value of a "checked" radio button
   // shound be something like this 
   // $(`input[name=answers]:checked`).val();
+  return $(`input[name="questionOne"]:checked`).val();
 }
 
 function getItemIdFromElement(item) {
@@ -168,8 +182,8 @@ function getItemIdFromElement(item) {
 
 
 
-console.log(STORE.questions[0]);
-console.log(STORE.responses[6]);
+//console.log(STORE.questions[0]);
+//console.log(STORE.responses[6]);
 
 // this function will be our callback when the page loads. it's responsible for
 // initially rendering the shopping list, and activating our individual functions
