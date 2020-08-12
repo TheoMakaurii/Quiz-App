@@ -3,7 +3,7 @@ body, html {
     margin: 0;
 }
 body main {
-    padding:28px;
+    padding: 7px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,12 +14,37 @@ body main {
     background-repeat: no-repeat;
 }
 body main div{
-    width: 50%;
+    width: 70%;
     border: 1px solid #000;
-    border-radius: 49px;
+    border-radius: 21px;
 }
+
+body main h1{
+font-size: 35px;
+
+}
+
+body main h2{
+font-size: 28px;
+margin: 14px;
+
+}
+
+body main input[type="radio"], body main label{
+font-size: 21px;
+}
+
 main div button {
     margin: 15px;
+    float: right;
+    border-radius: 14px;
+}
+
+body main div img{
+    max-height: 320px;
+    max-width: 50%;
+    align-self: center;
+
 }
 h1{
     text-align: center;
@@ -70,4 +95,33 @@ span{
 .result-screen span{
     align-self: center;
     font-size: 4em;
+}
+
+@media all and (min-width:800px){
+
+body main{
+    padding: 21px;
+}
+body main h1{
+    font-size: 42px;
+        
+ }
+        
+body main h2{
+font-size: 35px;
+        
+ }
+
+ body main input[type="radio"], body main label{
+    font-size: 28px;
+}
+
+main div button {
+    margin: 15px;
+    float: right;
+    border-radius: 14px;
+    font-size: 28px;
+    padding: 17px;
+}
+
 }

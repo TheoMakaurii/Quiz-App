@@ -50,32 +50,36 @@ const STORE = {
         {
             name: "response1 (This is an internal name, we won't have to use this value.)",
             responses: [`Voila! Of course a Magician would never be caught without a rabbit in their hat!`, ` Other pets are fine for the less magically inclined, but a true magician always has a furry friend in his hat.`],
-            image: "magic rabbit.jpg"
+            image: "magic rabbit.png"
         },
         {
             name: "response2 (This is an internal name, we won't have to use this value.)",
             responses: [`A magician has many favorite colors. You have great taste, too!`, `Wow! You are so boring. A magician would never be caught dead in brown!`],
-            image:"magician outfit.jpg"
+            image:"magician outfit.png"
         },
         {
             name: "response3 (This is an internal name, we won't have to use this value.)",
-            responses: [`Amazing! You are already performing magic! I love your scarf.`, `That is a sensible answer. However, it is not a very magical way to store your scarf.`]
-        },
+            responses: [`Amazing! You are already performing magic! I love your scarf.`, `That is a sensible answer. However, it is not a very magical way to store your scarf.`],
+            image:"magic scarves.png"        },
         {
             name: "response4 (This is an internal name, we won't have to use this value.)",
-            responses: [`Abra kadabra! The wand is a perfect tool for wielding the magical elements. Impressive!`, `Ohhh... You seem to be pretty violent. Not exactly what we were looking for...`]
+            responses: [`Abra kadabra! The wand is a perfect tool for wielding the magical elements. Impressive!`, `Ohhh... You seem to be pretty violent. Not exactly what we were looking for...`],
+            image:"magic wand.png"
         },
         {
             name: "response5 (This is an internal name, we won't have to use this value.)",
-            responses: [`Wow!! Thats right.`, `Not quite! A magician NEEDS to know every suit in a deck if they want to make cards appear from thin air!`]
+            responses: [`Wow!! Thats right.`, `Not quite! A magician NEEDS to know every suit in a deck if they want to make cards appear from thin air!`],
+            image:"magic-cards.png"
         },
         {
             name: "response6 (This is an internal name, we won't have to use this value.)",
-            responses: [`Very nice! Sounds like an excellent spot to wow an audience!`, `While you are relaxing, there is a whole world of people that is being left unimpressed. Shame on you.`]
+            responses: [`Very nice! Sounds like an excellent spot to wow an audience!`, `While you are relaxing, there is a whole world of people that is being left unimpressed. Shame on you.`],
+            image:"magic-audience.png"
         },
         {
             name: "win/lose screen",
-            responses: [`HOW DID YOU DO THAT? Oh right, a magician never reveals their secret.`, `I'm sure your mother is very proud.`]
+            responses: [`HOW DID YOU DO THAT? Oh right, a magician never reveals their secret.`, `I'm sure your mother is very proud.`],
+            image: "magic-finale.png"
         },
 
     ],

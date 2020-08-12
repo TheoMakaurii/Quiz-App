@@ -39,7 +39,7 @@ function generateStartScreenString(store) {
   //console.log(store);
   return `<div class="start-screen ">
   <h1>${store.startScreen.title}</h1>
-  <img src="magic hat.jpeg">
+  <img src="magic hat.png">
   <button type="button" label="start">START</button>
   <h2>${store.startScreen.header}</h2>
 </div>`;
