@@ -3,35 +3,38 @@
 
 'use strict';
 
-function generateQuestionsString(question){
+function generateQuestionsString(question) {
   // Here we will make the questions string to put in the form. 
+  let value = "";
+  let value2nd = "";
+  if (STORE.currentQuestion === 2-1) {
+    value = "true";
+    value2nd = "false";
+  } else if (STORE.currentQuestion === 6-1) {
+    value = "false";
+    value2nd = "true";
+  } else {
+    value = "false";
+    value2nd = "false";
+  }
 
-  return `<input type="radio" id="A" name="questionOne" value="false" required>
+  return `<input type="radio" id="A" name="questionOne" value="${value}" required>
   <label for="A"> ${question[STORE.currentQuestion].answers[0]} </label>
   <br>
-  <input type="radio" id="B" name="questionOne" value="false">
+  <input type="radio" id="B" name="questionOne" value="${value2nd}">
   <label for="B"> ${question[STORE.currentQuestion].answers[1]} </label>
   <br>
   <input type="radio" id="C" name="questionOne" value="true">
   <label for="C"> ${question[STORE.currentQuestion].answers[2]} </label>
   <br>
-  <input type="radio" id="D" name="questionOne" value="false">
+  <input type="radio" id="D" name="questionOne" value="${value}">
   <label for="D"> ${question[STORE.currentQuestion].answers[3]} </label>
   <br>
 
   <button type="submit" id="submit-button">SUBMIT</button>`;
 }
 
-function generateShoppingItemsString(shoppingList) {
-  console.log("Generating shopping list element");
-  //console.log(shoppingList);
-  let questions = shoppingList.questions;
-  const items = questions.map((item) => generateItemElement(item));
-  
-  return items.join("");
-}
-
-function generateStartScreenString(store){
+function generateStartScreenString(store) {
   // Here we will return some similar to generateItemElement() function.
   //console.log(store);
   return `<div class="start-screen ">
@@ -41,11 +44,12 @@ function generateStartScreenString(store){
 </div>`;
 }
 
-function generateQuestionScreenString(database,questions){
+function generateQuestionScreenString(database) {
   // Here we will return some similar to generateItemElement() function.
   // Takes the value from generateQuestionsString and puts it in the form spot.
+  //console.log(STORE.questions[database.currentQuestion].name);
   return `<div class="question-screen">
-  <span id="score">${STORE.questionsCorrect}/7</span>
+  <span id="score">CORRECT: ${STORE.questionsCorrect}/7</span>
   <h2>${STORE.questions[STORE.currentQuestion].name}</h2>
   <div class="box">
       <form class="options">
@@ -54,13 +58,13 @@ function generateQuestionScreenString(database,questions){
   </div>
 </div>`;
 }
-function generateResponseScreenString(database){
+function generateResponseScreenString(database) {
   handleNextQuestion();
   // Response will be two choices, if they get it right, if they get it wrong
   // So do a check for that. 
-  if(STORE.questionsRightOrWrong === true){
+  if (STORE.questionsRightOrWrong === true) {
     let responseCollection = STORE.responses;
-    let currentReponseIndex = STORE.currentQuestion-1;
+    let currentReponseIndex = STORE.currentQuestion - 1;
     return `<div class="answer-screen" id="">
     <h2> ANSWER SCREEN </h2>
     <h3 id="answer-binary">${responseCollection[currentReponseIndex].responses[0]}</h3>
@@ -69,50 +73,56 @@ function generateResponseScreenString(database){
   } else {
     return `<div class="answer-screen" id="">
     <h2> ANSWER SCREEN </h2>
-    <h3 id="answer-binary">${STORE.responses[STORE.currentQuestion-1].responses[1]}</h3>
+    <h3 id="answer-binary">${STORE.responses[STORE.currentQuestion - 1].responses[1]}</h3>
     <button id="next-question">Next Question</button>
 </div>`;
   }
-  
 }
-function generateResultScreenString(database){
-if(STORE.questionsCorrect === 7 ){
-  return `<div class="answer-screen" id="">
+function generateResultScreenString(database) {
+
+  if (database.questionsCorrect === 7) {
+    return `<div class="result-screen" id="">
   <h2> TOTAL SCORE </h2>
-  <h3 id="answer-binary"> ${STORE.result.response[0]}</h3>
-  <p>HOW DID YOU DO THAT? Oh right, a magician never reveals their secret.</p>
-  <br>
-  <p>Im sure your mother is very proud.</p>
-</div>`
-}
-else{
-  return`<div class="answer-screen" id="">
-  <h2> TOTAL SCORE </h2>
-  <h3 id="answer-binary"> ${STORE.result.response[1]}</h3>
+  <span>${STORE.questionsCorrect}/7</span>
+  <h3 id="answer-binary"> ${database.result.response[0]}</h3>
+  <button>Try Again?</button>
 </div>`;
-}
-  return "";
+  }
+  else {
+    return `<div class="result-screen" id="">
+  <h2> TOTAL SCORE </h2>
+  <span>${STORE.questionsCorrect}/7</span>
+  <h3 id="answer-binary"> ${database.result.response[1]}</h3>
+  <button>Try Again?</button>
+</div>`;
+  }
 }
 
 
-function generateStartScreen(){
+function generateStartScreen() {
   // render the start screen in the DOM
   // it will take the string from generateStartScreenString
   // and put that in the dom.
   let html = generateStartScreenString(STORE);
   $(`main`).html(html);
+  handleQuizStartButton();
+  // we need to reset these values anytime we start or startover!
+  STORE.currentQuestion = 0;
+  STORE.questionsCorrect = 0;
 }
-function generateQuestionScreen(){
+function generateQuestionScreen() {
   // render the Question screen in the DOM
   // it will take the string from generateQuestionScreenString
   // and put that in the dom.
   //let html =generateQuestionsString(STORE);
-  let html = generateQuestionScreenString(STORE,generateQuestionsString);
+  let html = generateQuestionScreenString(STORE);
+  //$(`main form input[type="radio"]`).attr('required', true);
   $(`main`).html(html);
+  console.log(html);
   handleAnswerSubmit();
 }
 
-function generateResponseScreen(){
+function generateResponseScreen() {
   // render the response screen in the DOM
   // it will take the string from generateResponseScreenString
   // and put that in the dom.
@@ -120,103 +130,89 @@ function generateResponseScreen(){
   $(`main`).html(html);
 }
 
-function generateResultsScreen(){
+function generateResultsScreen() {
 
   // render the result screen in the DOM
   // it will take the string from generateResultsScreenString
   // and put that in the dom.
-  let html= generateResultScreenString(STORE);
+  let html = generateResultScreenString(STORE);
   $(`main`).html(html);
+  handleStartOver();
 }
 
-function handleQuizStartButton(){
+function handleQuizStartButton() {
   //when the userStarts the quiz, render the first question. 
   //console.log("you called handleQuizStartButton the Function");
-  $(`button`).on('click', function(){
-    console.log("This button is working");
+  $(`main`).on('click', '.start-screen button',function () {
+    //console.log("This button is working");
     generateQuestionScreen();
   });
 }
 
-function handleAnswerSubmit(){
+function handleAnswerSubmit() {
   // takes the value from getValueFromCheckedAnswer function
   //console.log("you called the submit function!");
-  $(`main form button[type="submit"]`).on('click', function(event){
+  //console.log(generateQuestionScreenString());
+  $(`main form button[type="submit"]`).on('click', function (event) {
     event.preventDefault();
     let userAnswer = getValueFromCheckedAnswer();
-   // console.log(`userAnswer is ${userAnswer}, the type of it is ${typeof userAnswer}`);
+    // console.log(`userAnswer is ${userAnswer}, the type of it is ${typeof userAnswer}`);
 
     // increment the currentQuestion counter
     STORE.currentQuestion++;
-    console.log(STORE.currentQuestion);
-     // checks that value against the actual correct answer
-     // changed the value of questionsRightOrWrong to either true or false
-    
-    if(userAnswer === STORE.questions[STORE.currentQuestion-1].correctAnswer){
+    //console.log(STORE.currentQuestion);
+    // checks that value against the actual correct answer
+    // changed the value of questionsRightOrWrong to either true or false
+
+    if (userAnswer === STORE.questions[STORE.currentQuestion - 1].correctAnswer) {
       //do something
       STORE.questionsRightOrWrong = true;
       //console.log("user has the right answer");
-      STORE.questionsCorrect ++;
+      STORE.questionsCorrect++;
     } else {
       console.log("user has the wrong answer");
       STORE.questionsRightOrWrong = false;
     }
-    if(STORE.currentQuestion<= 6){
-    
-    generateResponseScreen();}
+    if (STORE.currentQuestion <= 6) {
 
-    else{generateResultsScreen();}
+      generateResponseScreen();
+    }
+
+    else { generateResultsScreen(); }
   });
-  
+
   // then render the responseScreen
 }
 
-function handleNextQuestion(){
-  console.log("handle next question");
-  $(`main`).on('click',".answer-screen button#next-question",function(){
+function handleNextQuestion() {
+  //console.log("handle next question");
+  $(`main`).on('click', ".answer-screen button#next-question", function () {
     generateQuestionScreen();
-    
+
   });
 }
 
-function handleNewItemSubmit() {
-  $('#js-shopping-list-form').submit(function(event) {
-    event.preventDefault();
-    console.log('`handleNewItemSubmit` ran');
-    const newItemName = $('.js-shopping-list-entry').val();
-    $('.js-shopping-list-entry').val('');
-    addItemToShoppingList(newItemName);
-    renderShoppingList();
+function handleStartOver(){
+  $(`main`).on('click', '.result-screen button', function(){
+    generateStartScreen();
   });
 }
 
-
-function getValueFromCheckedAnswer(){
+function getValueFromCheckedAnswer() {
   // Find the value of a "checked" radio button
   // shound be something like this 
   // $(`input[name=answers]:checked`).val();
-  let input =$(`input[name="questionOne"]:checked`).val();
-  console.log(`${input} test test`)
-  let answer= true;
-  if(input === "true"){
+  let input = $(`input[name="questionOne"]:checked`).val();
+  //console.log(`${input} test test`);
+  let answer = true;
+  if (input === "true") {
     answer = true;
   }
-  else {answer = false }
-  console.log(`${input} this is type of ${answer}`)
+  else { answer = false; }
+  //console.log(`${input} this is type of ${answer}`);
   //console.log(($(`input[name="questionOne"]:checked`).val()).parseBoolean());
   return answer;
 }
-
-function getItemIdFromElement(item) {
-  return $(item)
-    .closest('li')
-    .data('item-id');
-}
-
-
-
-//console.log(STORE.questions[0]);
-//console.log(STORE.responses[6]);
 
 // this function will be our callback when the page loads. it's responsible for
 // initially rendering the shopping list, and activating our individual functions
@@ -224,8 +220,7 @@ function getItemIdFromElement(item) {
 // for individual shopping list items.
 function main() {
   generateStartScreen();
-  handleQuizStartButton();
-  
+
 }
 
 // when the page loads, call `handleShoppingList`

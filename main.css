@@ -41,3 +41,18 @@ span{
     align-self: flex-end;
 }
 
+.result-screen{
+    background-color: lightgray;
+    padding: 14px;
+    display: flex;
+    flex-direction: column; 
+    text-align: center;
+}
+.result-screen button {
+    width: fit-content;
+    align-self: center;
+}
+.result-screen span{
+    align-self: center;
+    font-size: 4em;
+}
