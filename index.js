@@ -2,19 +2,21 @@
 
 'use strict';
 
-function generateQuestionsString(database){
+function generateQuestionsString(question){
   // Here we will make the questions string to put in the form.
+
+
   return `<input type="radio" id="A" name="questionOne" value="false" required>
-  <label for="A"> Dog </label>
+  <label for="A"> ${question[0].answers[0]} </label>
   <br>
   <input type="radio" id="B" name="questionOne" value="false">
-  <label for="B"> Cat </label>
+  <label for="B"> ${question[0].answers[1]} </label>
   <br>
   <input type="radio" id="C" name="questionOne" value="true">
-  <label for="C"> Rabbit </label>
+  <label for="C"> ${question[0].answers[2]} </label>
   <br>
   <input type="radio" id="D" name="questionOne" value="false">
-  <label for="D"> Snake </label>
+  <label for="D"> ${question[0].answers[3]} </label>
   <br>
 
   <button type="submit" id="submit-button">SUBMIT</button>`;
@@ -42,7 +44,15 @@ function generateStartScreenString(store){
 function generateQuestionScreenString(database,questions){
   // Here we will return some similar to generateItemElement() function.
   // Takes the value from generateQuestionsString and puts it in the form spot.
-  return "";
+  return `<div class="question-screen">
+  <span id="score">${STORE.questionsCorrect}/7</span>
+  <h2>${STORE.questions[STORE.currentQuestion].name}</h2>
+  <div class="box">
+      <form class="options">
+        ${generateQuestionsString(STORE.questions)}
+      </form>
+  </div>
+</div>`;
 }
 function generateResponseScreenString(database){
   // Here we will return some similar to generateItemElement() function.
@@ -82,8 +92,9 @@ function generateQuestionScreen(){
   // render the Question screen in the DOM
   // it will take the string from generateQuestionScreenString
   // and put that in the dom.
-
-  $(`main`).html("This is random html to show you went render Questions.");
+  //let html =generateQuestionsString(STORE);
+  let html = generateQuestionScreenString(STORE,generateQuestionsString);
+  $(`main`).html(html);
 }
 
 function generateResponseScreen(){
@@ -122,6 +133,7 @@ function handleAnswerSubmit(){
   // takes the value from getValueFromCheckedAnswer function
   // checks that value against the actual correct answer
   // increment the currentQuestion counter
+  STORE.currentQuestion++;
   // changed the value of questionsRightOrWrong to either true or false
   // then render the responseScreen
 }
