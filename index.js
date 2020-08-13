@@ -65,14 +65,14 @@ function generateResponseScreenString(database) {
   let currentReponseIndex = STORE.currentQuestion - 1;
   if (STORE.questionsRightOrWrong === true) {
     return `<div class="answer-screen" id="">
-    <h2> ANSWER SCREEN </h2>
+    <h2> Correct! </h2>
     <img src="${STORE.responses[currentReponseIndex].image}">
     <h3 id="answer-binary">${responseCollection[currentReponseIndex].responses[0]}</h3>
     <button id="next-question">Next Question</button>
 </div>`;
   } else {
     return `<div class="answer-screen" id="">
-    <h2> ANSWER SCREEN </h2>
+    <h2> Incorrect! </h2>
     <img src="${STORE.responses[currentReponseIndex].image}">
     <h3 id="answer-binary">${STORE.responses[STORE.currentQuestion - 1].responses[1]}</h3>
     <button id="next-question">Next Question</button>
@@ -84,6 +84,7 @@ function generateResultScreenString(database) {
   if (database.questionsCorrect === 7) {
     return `<div class="result-screen" id="">
   <h2> TOTAL SCORE </h2>
+  <img src="${database.result.image}">
   <span>${STORE.questionsCorrect}/7</span>
   <h3 id="answer-binary"> ${database.result.response[0]}</h3>
   <button>Try Again?</button>
@@ -244,53 +245,3 @@ function main() {
 
 // when the page loads, call `handleShoppingList`
 $(main);
-
-
-// Code in the example but we won't need
-
-// const STORE = [
-//   {id: cuid(), name: "apples", checked: false},
-//   {id: cuid(), name: "oranges", checked: false},
-//   {id: cuid(), name: "milk", checked: true},
-//   {id: cuid(), name: "bread", checked: false}
-// ];
-
-// function toggleCheckedForListItem(itemId) {
-//   console.log("Toggling checked property for item with id " + itemId);
-//   const item = STORE.find(item => item.id === itemId);
-//   item.checked = !item.checked;
-// }
-
-// function handleItemCheckClicked() {
-//   $('.js-shopping-list').on('click', `.js-item-toggle`, event => {
-//     console.log('`handleItemCheckClicked` ran');
-//     const id = getItemIdFromElement(event.currentTarget);
-//     toggleCheckedForListItem(id);
-//     renderShoppingList();
-//   });
-// }
-
-// function addItemToShoppingList(itemName) {
-//   console.log(`Adding "${itemName}" to shopping list`);
-//   STORE.push({id: cuid(), name: itemName, checked: false});
-// }
-
-// function handleDeleteItemClicked() {
-//   $('.js-shopping-list').on('click', `.js-item-delete`, event =>{
-//     //console.log('you are clicking delete');
-//     const id = getItemIdFromElement(event.currentTarget);
-//     for(let i = 0; i < STORE.length; i++){
-//       //Looping through each item
-//       if(id === STORE[i].id){
-//         //If we find that item that matches the id, delete it. 
-//         console.log("We found the item!");
-//         //console.log(STORE[i]);
-//         console.log(i);
-//         STORE.splice(i, 1);
-//         console.log(STORE);
-//       }
-//     }
-//     renderShoppingList();
-//   });
-
-// }
